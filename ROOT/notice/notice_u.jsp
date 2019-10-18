@@ -1,6 +1,11 @@
 ﻿<%@ page language="java" contentType="text/html; charset=utf-8"  pageEncoding="utf-8"%>
-<%@ include file="/common_head.jsp" %>
 <%@ page import="dao.Notice_DAO,dto.Notice_DTO"%>
+
+<%@ include file="/common_head.jsp" %>
+
+<%@ include file = "/common/sessionCheckManager.jsp"%>
+
+
 <%
 	Notice_DAO dao = new Notice_DAO();
 	String notice_no = request.getParameter("t_notice_No");
@@ -13,15 +18,8 @@
  
 
  
-      <div id="menu">
-		<ul>
-			<li><a href="notice_r.jsp"><img class="arrow" src="../images/arrow.gif"> NOTICE</a></li>
-			<li><a href=""><img class="arrow" src="../images/arrow.gif"> NEWS</a></li>
-			<li><a href=""><img class="arrow" src="../images/arrow.gif"> 자유게시판</a></li>
-			<li><a href=""><img class="arrow" src="../images/arrow.gif"> Q & A</a></li>
-
-		</ul>
-      </div>
+   <%@ include file="/common_sidebar.jsp" %>
+   
       <div id="content">
 			<ul>
 				<!-- <li class="btn_home"> -->
@@ -87,7 +85,9 @@ function Update()
 		}
 		fm.action ="notice_proc.jsp";
 		fm.method ="post";
-		fm.submit();
+		fm.submit(); 
+		
+
 }
 </script>
 	<form name="noticeUpdate">	
@@ -102,7 +102,7 @@ function Update()
 			<tbody>
 				<tr>
 					<th>작성자</th>
-					<td> 홍길동</td>
+					<td><%=sessionName%></td>
 				</tr>
 				<tr>
 					<th>제 목</th>

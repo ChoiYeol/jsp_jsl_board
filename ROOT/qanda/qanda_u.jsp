@@ -1,38 +1,19 @@
 ﻿<%@ page language="java" contentType="text/html; charset=utf-8"  pageEncoding="utf-8"%>
+<%@ page import="dao.Qanda_DAO,dto.Qanda_DTO"%>
 
 <%@ include file="/common_head.jsp" %>
-
-<%@ include file = "/common/sessionCheckManager.jsp" %>
- <style> 
-	#menu ul li a{
-		font : bold 12px "돋음", Gulim; 
-		color :#6E6E6E; 
-		border-bottom : 1px dotted #848484;
-		display : inline-block;
-		width : 130px;
-		height : 25px;
-		//background : yellow;
-		line-height : 25px;
-	}
-	.arrow{
-		vertical-align:middle;
-		width : 6px;
-	}
-	.home_icon{
-		width : 15px;
-	}
-	#content{
-		font : 10px "돋음", Gulim ; 
-		color :#848484; 
-	}	
-	#content .title a{
-		font : 10px "돋음", Gulim ; 
-		color :#6E6E6E; 
-	}	
-
- </style> 
  
- <%@ include file="/common_sidebar.jsp" %>
+
+<%
+	Qanda_DAO dao = new Qanda_DAO();
+	String qna_no = request.getParameter("t_Qanda_no");
+	Qanda_DTO dto = dao.getQandaView(qna_no);	
+
+%>
+ 
+
+  <%@ include file="/common_sidebar.jsp" %>
+  
       <div id="content">
 			<ul>
 				<!-- <li class="btn_home"> -->
@@ -42,11 +23,12 @@
 					<a href="index.html">
 						<img src="../images/home3.png" class="home_icon">
 					</a>
-					&nbsp;HOME | &nbsp;커뮤니티 | NOTICE
+					&nbsp;HOME | &nbsp;커뮤니티 | qna
 				</li>
 			</ul>
 		
 <style>
+
 
 
 .bord_list { padding-top:20px;}
@@ -77,10 +59,12 @@
 	color :#848484; 
 }
 </style>
+
 <script>
-	function save(){
-		var fm = document.notice;
-		
+function Update()
+{
+		var fm = document.qandaUpdate;
+		//fm.action ="qna_update.jsp";
 		if(fm.t_title.value =="")
 		{
 			alert("제목을 입력해주세요");
@@ -89,18 +73,22 @@
 		}
 		if(fm.t_content.value =="")
 		{
-			alert("제목을 입력해주세요");
+			alert("내용을 입력해주세요");
 			fm.t_content.focus();
 			return;
 		}
-		fm.action ="notice_proc.jsp";
+		fm.action ="qanda_proc.jsp";
 		fm.method ="post";
-		fm.submit();
-	}
-</script>			
+		fm.submit(); 
+		
 
-	<form name="notice">		
-	<input type="hidden" name="t_work_gubun" value="insert" >
+}
+</script>
+	<form name="qandaUpdate">	
+	<input name="t_Qanda_no" value="<%=qna_no%>"  type="hidden" >
+	<input name="h_ca" value="<%=dto.getChecked_answer()%>"  type="hidden" >
+	<input name="t_work_gubun" value="update"  type="hidden" >
+	
 	<div class="bord_list">
 		<table class="bord_table">
 			<colgroup>
@@ -115,21 +103,20 @@
 				<tr>
 					<th>제 목</th>
 					<td>
-						<input name="t_title" type="text" class="t_title" maxlength="30" />
+						<input name="t_title" value="<%=dto.getTitle()%>" type="text" class="t_title" maxlength="30" />
 					</td>
 				</tr>
 				<tr>
 					<th>내 용</th>
 					<td>
-						<textarea name="t_content" class="board_textarea_H270" ></textarea>
+						<textarea name="t_content" class="board_textarea_H270" ><%=dto.getContent()%></textarea>
 					</td>
 				</tr>
 			</tbody>
 		</table>
 		<div class="paging">
-			<a href="notice_r.jsp" class="btn_write">목 록</a>
-			<a href="notice_proc.jsp?t_title=가가나나&t_value=bbb" class="btn_write">get</a>
-			<a href="javascript:save()" class="btn_write">등 록</a>
+			<a href="qanda_r.jsp" class="btn_write">목 록</a>
+			<a href="javascript:Update()" class="btn_write">수정 저장</a>
 		</div>
 	</div>			
 	</form>

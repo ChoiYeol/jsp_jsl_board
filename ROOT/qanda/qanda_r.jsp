@@ -1,9 +1,9 @@
 ﻿<%@ page language="java" contentType="text/html; charset=utf-8"  pageEncoding="utf-8"%>
 <%@ include file="/common_head.jsp" %>
-<%@ page import="java.util.*,dao.Notice_DAO,dto.Notice_DTO,common.CommonUtil"%>
+<%@ page import="java.util.*,dao.Qanda_DAO,dto.Qanda_DTO,common.CommonUtil"%>
 <%
 	request.setCharacterEncoding("UTF-8");
-	Notice_DAO dao = new Notice_DAO();
+	Qanda_DAO dao = new Qanda_DAO();
 	
 	String selValue = request.getParameter("t_sel");
 	String txtValue = request.getParameter("t_search");
@@ -12,8 +12,7 @@
 		selValue ="title";
 		txtValue ="";
 	}	
-	ArrayList<Notice_DTO> dtos = 
-				dao.getNoticeList(selValue,txtValue);	
+	ArrayList<Qanda_DTO> dtos = dao.getQandaList();	
 	
 	
 	//Pageing ********************
@@ -57,8 +56,10 @@
 	
 %>
 
- <%@ include file="/common_sidebar.jsp" %>
- 
+
+
+    <%@ include file="/common_sidebar.jsp" %>
+	
       <div id="content">
 			<ul>
 				<!-- <li class="btn_home"> -->
@@ -68,13 +69,13 @@
 					<a href="/index.html">
 						<img src="../images/home3.png" class="home_icon">
 					</a>
-					<a href="/index.html">&nbsp;HOME</a> | &nbsp;커뮤니티 | NOTICE
+					<a href="/index.html">&nbsp;HOME</a> | &nbsp;커뮤니티 | Qanda
 				</li>
 			</ul>
 <script>			
 	function formSearch(){
-		var fm = document.notice;
-		fm.action ="notice_r.jsp";
+		var fm = document.Qanda;
+		fm.action ="Qanda_r.jsp";
 		fm.method ="post";
 		fm.submit();		
 	}	
@@ -105,7 +106,7 @@
 		color :#848484; 
 	}	
 </style>
-			<form name="notice">
+			<form name="Qanda">
 			<p class="select_Box">
 				<select name="t_sel" class="sel_box" >
 					<option value="title">제목</option>
@@ -156,13 +157,24 @@
 					if(v_count == for_count){ 		
 			%> 	
 				<tr>
-					<td><a href="notice_v.jsp?t_noticeNo=<%=dtos.get(k).getNotice_no()%>"><%=dtos.get(k).getNotice_no()%></a></td>
 					<td class="title">
-						<a href="notice_v.jsp?t_noticeNo=<%=dtos.get(k).getNotice_no()%>"><%=dtos.get(k).getTitle()%></a></td>
-					<td><%=dtos.get(k).getReg_id()%></td>
-					<td><%=dtos.get(k).getReg_date()%></td>
-					<td><%=dtos.get(k).getHit()%></td>
+						<a href="qanda_v.jsp?t_Qanda_no=<%=dtos.get(k).getQna_no()%>"><%=dtos.get(k).getQna_no()%></a>
+					</td>
+					<td>
+						<a href="qanda_v.jsp?t_Qanda_no=<%=dtos.get(k).getQna_no()%>"><%=dtos.get(k).getTitle()%></a>
+					</td>
+					<td>
+					<%=dtos.get(k).getReg_id()%>
+					</td>
+					<td>
+					<%=dtos.get(k).getQna_date()%>
+					</td>
+					<td>
+					<%=dtos.get(k).getChecked_answer()%>
+					</td>
+					
 				</tr>
+			
 			<%
 						v_count = v_count + 1;
 						for_count = for_count + 1;
@@ -182,12 +194,12 @@
 		<div class="paging">
 		
 			<%
-			url = "notice_r.jsp?t_sel="+selValue+"&t_search="+txtValue;		 // 페이징될때도 셀렉트의 값 넘김
+			url = "qanda_r.jsp?t_sel="+selValue+"&t_search="+txtValue;		 // 페이징될때도 셀렉트의 값 넘김
 			out.println(CommonUtil.pageList(current_page, total_page, url));
 			%>	
 
-			<% if (sessionLevel.equals("manager")){ %> 
-			<a href="notice_w.jsp" class="btn_write">글쓰기</a>
+			<% if(!sessionLevel.equals("manager")){ %> 
+			<a href="qanda_w.jsp" class="btn_write">글쓰기</a>
 			<%	} %> 
 		</div>
 		</div>			

@@ -42,12 +42,12 @@
 	{
 		opener.document.member.id_check_value.value ="<%=id%>";
 		//opener.document.getElementById("id_check_value").value ="<%=id%>";
-		openner.document.member.t_pw_1.focus();
+		
 		window.close();
 	}
 	function confirm_cancel()
 	{
-		openner.document.member.t_id.focus();
+		opener.document.member.id_check_value.value ="";
 		window.close();
 	}
 </script>
@@ -83,7 +83,8 @@
 				<TR align=center >
 					<td>
 						<a href="javascript:confirm_cancel()"><img src="/images/member_confirm_2.gif"></a>
-					</td>
+					
+				</td>
 				</TR>
 <%
 				}

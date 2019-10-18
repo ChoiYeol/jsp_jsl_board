@@ -33,7 +33,7 @@ public class Notice_DAO {
 			}catch(Exception e){
 				System.out.println("insertNotice() close" + e.getMessage());
 			}
-		}			
+		}
 		return result;
 	}
 	
@@ -86,10 +86,9 @@ public class Notice_DAO {
 	//상세조회
 	public Notice_DTO getNoticeView(String noti_no){
 		Notice_DTO dto = null;
-		String query =" select notice_no, title, content, file_name_1, "+
-						" reg_id, to_char(reg_date,'yy-MM-dd'), hit "+
-						" from a18_track2_web_notice "+
-						" where notice_no ='"+noti_no+"'";
+		String query = " select a.notice_no, a.title, a.content, a.file_name_1,   b.name , "
+					+" to_char(a.reg_date,'yy-MM-dd'), a.hit  from a18_track2_web_notice a , "
+					+" a18_track2_web_member b where a.reg_id = b.id and a.notice_no = '19_0010' ";
 		try {
 			con = common.getConnection();
 			ps = con.prepareStatement(query);
@@ -129,7 +128,8 @@ public class Notice_DAO {
 						" from a18_track2_web_notice "+
 						" where "+selValue+" like '%"+txtValue+"%' "+
 						" order by notice_no desc";
-		try {
+		try 
+		{
 			con = common.getConnection();
 			ps = con.prepareStatement(query);
 			rs = ps.executeQuery();

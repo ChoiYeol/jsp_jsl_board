@@ -8,15 +8,9 @@
 	Notice_DTO dto = dao.getNoticeView(notice_no);	
 %>
 
-      <div id="menu">
-		<ul>
-			<li><a href="notice_r.jsp"><img class="arrow" src="../images/arrow.gif"> NOTICE</a></li>
-			<li><a href=""><img class="arrow" src="../images/arrow.gif"> NEWS</a></li>
-			<li><a href=""><img class="arrow" src="../images/arrow.gif"> 자유게시판</a></li>
-			<li><a href=""><img class="arrow" src="../images/arrow.gif"> Q & A</a></li>
 
-		</ul>
-      </div>
+ <%@ include file="/common_sidebar.jsp" %>
+
       <div id="content">
 			<ul>
 				<!-- <li class="btn_home"> -->
@@ -99,9 +93,12 @@
 			</tbody>
 		</table>
 		<div class="paging">
+			<% if(sessionLevel.equals("manager")) { %>
 				<a href="javascript:deleteNotice()" class="btn_write">삭 제</a>
 				<a href="notice_u.jsp?t_notice_No=<%=notice_no%>" class="btn_write">수 정</a>
-				<a href="notice_r.jsp" class="btn_write">목 록</a>
+				
+			<% } %>
+			<a href="notice_r.jsp" class="btn_write">목 록</a>
 		</div>
 	  </div>			
 			

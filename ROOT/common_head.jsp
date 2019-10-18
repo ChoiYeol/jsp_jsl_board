@@ -1,20 +1,23 @@
 ﻿
+<%@ include file="/common_session_info.jsp" %>
+
 <!doctype html>
 <html lang="ko">
 <head>
 <meta charset="utf-8">
 <title>JSL 방문을 환영합니다</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">	
 <link rel="stylesheet" type="text/css" href="/css/reset.css" />
 <link rel="stylesheet" type="text/css" href="/css/base.css" /> 
-<link rel="stylesheet" type="text/css" href="/css/etc.css?ver=2" /> 
+<link rel="stylesheet" type="text/css" href="/css/etc.css?ver=5" /> 
 
 <!-- <link href="../css/font-awesome.min.css" rel="stylesheet">  -->
 <script type="text/javascript" src="/js/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
 <script type="text/javascript">
     //<![CDATA[
-	
 		$(function(){
 		  $(".menu1").mouseover(function(){
 			$("#s_div_1").stop().slideDown("slow");
@@ -51,7 +54,7 @@
     //]]>
 </script>    
 <style>
-<!-- body { font : 12px "굴림", Gulim ; background : url("images/bg_grid.gif") ; }	 -->
+
 #container {
 	width: 940px;
 	margin: 0px auto;
@@ -59,63 +62,6 @@
 	padding: 20px;
 	border: 0px solid #bcbcbc;
 //	background : #ccc;
-}
-#header {
-	width: 940px;
-	height:140px;
-	padding: 0px;
-	margin-bottom: 20px;
-	border: 0px solid red;
-//	background : #F5DA81;
-}
-#menu {
-	width: 130px;
-	height : 460px;
-	padding: 20px 10px;
-	margin-bottom: 20px;
-	float: left;
-	border: 0px solid #bcbcbc;
-//	background :#E0F2F7;
-}	  
-#content {
-	width: 748px; 
-	height : 460px;
-	padding: 20px;
-	margin-bottom: 20px;
-	float: right;
-	border: 0px solid #bcbcbc;
-//	background :#A9E2F3;
-}
-#footer {
-	clear: both;
-	padding: 20px;
-	border: 1px solid #bcbcbc;
-	//background :#BCA9F5;
-}
-
-.header_menu li{
-	float:left;
-}
-
-.header_menu li a{
-	display : inline-block;
-	//padding-top:5px;
-	width : 188px;
-	height : 20px;
-	background : #A9A9A9;
-	text-align:center;
-	line-height: 20px;
-	opacity : 0.8;
-	color : white;
-}
-
-#header{
-	background:url("/images/back_img_4.jpg");
-	position : relative;
-}
-.header_menu{
-	position : absolute;
-	top : 120px;
 }
 
 #s_div_1,#s_div_2,#s_div_3,#s_div_4{
@@ -165,15 +111,32 @@
 	color : #848484;
 	font-size : 10px;
 }
+
 </style>
 </head>
 <body>
     <div id="container">
 		<ul class="top_right">
-			<li><a href="">JOIN</a></li>
-			<li><a href="">LOGIN</a></li>
-			<li><a href="">HOME</a></li>
-			<li>최 열</li>
+			
+			<%  if(!sessionName.equals(""))
+				{
+			%>	
+			<li><a href="/member/member_logout.jsp">LOGOUT</a></li>
+			<li><a href="/member/member_myinfo.jsp">MYINFO</a></li>
+			<%
+				} else {
+			%>
+			<li><a href="/member/member_w.jsp">JOIN</a></li>
+			<li><a href="/member/member_login.jsp">LOGIN</a></li>
+			<%
+				}
+			%>
+			<li><a href="/index.jsp">HOME</a></li>
+			
+			  <% if(!sessionName.equals("")) {  %> 
+					<li>[<%=sessionName%>]님 &nbsp  </li>
+			  <%  }%>
+	
 			${header.host}
 		</ul>
 		<div id="header">

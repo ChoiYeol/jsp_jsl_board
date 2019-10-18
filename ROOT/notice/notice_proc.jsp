@@ -1,5 +1,8 @@
 ﻿<%@ page language="java" contentType="text/html; charset=utf-8"  pageEncoding="utf-8"%>
 <%@ page import="dao.Notice_DAO,dto.Notice_DTO,common.CommonUtil"%>
+	
+<%@ include file = "/common_session_info.jsp"%>
+<%@ include file = "/common/sessionCheckManager.jsp"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 	Notice_DAO dao = new Notice_DAO();
@@ -16,7 +19,7 @@
 	 content    = request.getParameter("t_content");
 	 if(content !=null)content = title.replaceAll("\'", "\''");
 	 file_name_1 = "";
-	 reg_id 	="홍길동";
+	 reg_id 	=sessionId;
 	 reg_date 	= CommonUtil.getToday();
 	 
 	if(work_gubun.equals("insert"))

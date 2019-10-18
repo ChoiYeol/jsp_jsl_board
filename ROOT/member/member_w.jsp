@@ -1,6 +1,10 @@
 ﻿<%@ page language="java" contentType="text/html; charset=utf-8"  pageEncoding="utf-8"%>
 
 <%@ include file="/common_head.jsp" %>
+
+
+
+
  <style> 
 	#menu ul li a{
 		font : bold 12px "돋음", Gulim ; 
@@ -135,14 +139,32 @@
 				//fm.method ="post";
 				//fm.submit();
 				document.member.t_id.focus();
+
 			}
 		 else{
 			window.open("check_id.jsp?t_id="+id,"asdf", " width=400 , height=210");
 			}
-	 }
+	}
+		function save()
+		{
+				var form = document.member;
+				
+			
+			
+				
+				
+				if(!checkEmpty(form.t_email_1  , "e-Mail 입력")){ return; }
+				
+				if(!checkEmpty(form.t_email_2  , "e-Mail 입력")){ return; }
+				
+				form.action="/member/member_proc.jsp";
+				form.method="post";
+				form.submit();
+		}
 </script>	
 
-	<form name="member">		
+	<form name="member">
+	<input type="hidden" name="t_work_gubun" value="insert" >
 	<div class="bord_list">
 		<table class="bord_table">
 			<colgroup>
@@ -153,7 +175,7 @@
 					<tr>
 						<th>아이디</th>
 						<td>
-							<input name="t_id" type="text" class="t_id" maxlength="30" autofocus="autofocus" />
+							<input name="t_id" type="text" class="t_id" maxlength="30" autofocus="autofocus" maxlength="20" />
 							<input type = "button" onClick="check_id()" value = "중복검사" style="height:21.5px; width:70px; color :#6E6E6E;" /> 
 							<input type = "text" name="id_check_value" /> 
 						</td>	
@@ -161,14 +183,14 @@
 					<tr>
 						<th>비밀번호</th>
 						<td>
-							<input name="t_pw_1" type="text" class="t_pw" maxlength="10" />&nbsp;&nbsp;&nbsp;비밀번호 확인
-							<input name="t_pw_2" type="text" class="t_pw" maxlength="10" />
+							<input name="t_pw_1" type="text" class="t_pw" maxlength="15" />&nbsp;&nbsp;&nbsp;비밀번호 확인
+							<input name="t_pw_2" type="text" class="t_pw" maxlength="15" />
 						</td>
 					</tr>
 					<tr>
 						<th>성 명</th>
 							<td>
-								<input name="t_name" type="text" class="t_name" maxlength="10" />&nbsp;&nbsp;&nbsp;
+								<input name="t_name" type="text" class="t_name" maxlength="5" />&nbsp;&nbsp;&nbsp;
 								생년월일
 								<input name="t_birth" type="text" class="t_birth" maxlength="6" placeholder="ex)950814" />
 							</td>
@@ -178,31 +200,32 @@
 					<td>
 						<select name ="t_area">
 							<option value="선택안함">지역 선택</option>
-							<option value="태 안">태 안</option>
+							
 							<option value="서 울">서 울</option>
+							<option value="태 안">태 안</option>
 							<option value="부 산">부 산</option>
 							<option value="대 전">대 전</option>
 							<option value="도 쿄">도 쿄</option>
 						</select>
-						&nbsp; <input style="vertical-align: -0.8px;" name="t_address" type="text" class="t_address" placeholder="나머지 주소" maxlength="20" />
+						&nbsp; <input style="vertical-align: -0.8px;" name="t_address" type="text" class="t_address" placeholder="나머지 주소" maxlength="25" />
 					</td>
 				</tr>
-				<tr>
-					<th>휴대폰 번호</th>
-					<td>
-						<input type = "radio" value="SKT" name = "t_telecom"/> SKT
-						<input type = "radio" value="KTF" name = "t_telecom"/> KTF
-						<input type = "radio" value="LG"  name = "t_telecom"/> LG  &nbsp;&nbsp;&nbsp;
-						<input name="t_phone_1" type="text" class="t_phone" maxlength="3" /> -
-						<input name="t_phone_2" type="text" class="t_phone" maxlength="4" /> -
-						<input name="t_phone_3" type="text" class="t_phone" maxlength="4" />
-					</td>
-				</tr>
-				<tr>
+					<tr>
+						<th>휴대폰 번호</th>
+							<td>
+								<input type = "radio" value="SKT" name = "t_telecom"/> SKT
+								<input type = "radio" value="KTF" name = "t_telecom"/> KTF
+								<input type = "radio" value="LG"  name = "t_telecom"/> LG  &nbsp;&nbsp;&nbsp;
+								<input name="t_phone_1" type="text" class="t_phone" maxlength="3" /> -
+								<input name="t_phone_2" type="text" class="t_phone" maxlength="4" /> -
+								<input name="t_phone_3" type="text" class="t_phone" maxlength="4" />
+							</td>
+						</tr>
+					<tr>
 					<th>이메일</th>
 					<td>
-						<input name="t_email_1" type="text" class="t_email" maxlength="30" /> <b>@</b>
-						<input name="t_email_1" type="text" class="t_email" maxlength="30" list="mail_list" />
+						<input name="t_email_1" type="text" class="t_email" maxlength="20" /> <b>@</b>
+						<input name="t_email_2" type="text" class="t_email" maxlength="20" list="mail_list" />
 						<datalist id="mail_list">
 							<option value ="google.com">
 							<option value ="naver.com">
@@ -214,16 +237,16 @@
 				<tr>
 					<th>관심 분야</th>
 					<td>
-						<input type = "checkbox" value="DESKTOP" name = "t_att_desk"/>DESKTOP
-						<input type = "checkbox" value="NOTEBOOK" name = "t_att_note"/> NOTEBOOK
-						<input type = "checkbox" value="PRINT" name = "t_att_print"/> PRINT	
-						<input type = "checkbox" value="BEAM" name = "t_att_beam"/> BEAM
+						<input type = "checkbox" value="y" name = "t_att_desk"/>DESKTOP
+						<input type = "checkbox" value="y" name = "t_att_note"/> NOTEBOOK
+						<input type = "checkbox" value="y" name = "t_att_print"/> PRINT	
+						<input type = "checkbox" value="y" name = "t_att_beam"/> BEAM
 					</td>
 				</tr>
 			</tbody>
 		</table>
 		<div>
-		
+				 
 				<a href="javascript:save()" class="log_in" style="margin-left:250px" >회원 가입</a>
 				<a href="/notice/notice_r.jsp" class="log_in" >취 소</a>
 		

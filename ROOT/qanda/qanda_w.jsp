@@ -2,7 +2,6 @@
 
 <%@ include file="/common_head.jsp" %>
 
-<%@ include file = "/common/sessionCheckManager.jsp" %>
  <style> 
 	#menu ul li a{
 		font : bold 12px "돋음", Gulim; 
@@ -29,10 +28,10 @@
 		font : 10px "돋음", Gulim ; 
 		color :#6E6E6E; 
 	}	
-
+	
  </style> 
- 
- <%@ include file="/common_sidebar.jsp" %>
+   <%@ include file="/common_sidebar.jsp" %>
+   
       <div id="content">
 			<ul>
 				<!-- <li class="btn_home"> -->
@@ -42,7 +41,7 @@
 					<a href="index.html">
 						<img src="../images/home3.png" class="home_icon">
 					</a>
-					&nbsp;HOME | &nbsp;커뮤니티 | NOTICE
+					&nbsp;HOME | &nbsp;커뮤니티 | Qanda
 				</li>
 			</ul>
 		
@@ -77,9 +76,10 @@
 	color :#848484; 
 }
 </style>
+
 <script>
 	function save(){
-		var fm = document.notice;
+		var fm = document.Qanda;
 		
 		if(fm.t_title.value =="")
 		{
@@ -93,13 +93,13 @@
 			fm.t_content.focus();
 			return;
 		}
-		fm.action ="notice_proc.jsp";
+		fm.action ="qanda_proc.jsp";
 		fm.method ="post";
 		fm.submit();
 	}
 </script>			
 
-	<form name="notice">		
+	<form name="Qanda">
 	<input type="hidden" name="t_work_gubun" value="insert" >
 	<div class="bord_list">
 		<table class="bord_table">
@@ -127,8 +127,8 @@
 			</tbody>
 		</table>
 		<div class="paging">
-			<a href="notice_r.jsp" class="btn_write">목 록</a>
-			<a href="notice_proc.jsp?t_title=가가나나&t_value=bbb" class="btn_write">get</a>
+			<a href="Qanda_r.jsp" class="btn_write">목 록</a>
+			<a href="Qanda_proc.jsp?t_title=가가나나&t_value=bbb" class="btn_write">get</a>
 			<a href="javascript:save()" class="btn_write">등 록</a>
 		</div>
 	</div>			
